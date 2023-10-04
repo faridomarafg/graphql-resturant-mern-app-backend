@@ -44,7 +44,7 @@ module.exports = {
               payment_method_types: ['card'],
               line_items: lineItems,
               mode: 'payment',
-              success_url: `${process.env.BASE_URL}/account`,
+              success_url: `${process.env.BASE_URL}/success`,
               cancel_url: `${process.env.BASE_URL}`,
             });
 
