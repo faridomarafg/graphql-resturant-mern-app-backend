@@ -6,6 +6,7 @@ const { dbConnect } = require('./config/dbConnect');
 const cors = require('cors');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const express = require('express');
+const bodyParser = require('body-parser');
 const Order = require('./models/orderModel');
 const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
