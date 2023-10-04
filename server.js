@@ -40,7 +40,6 @@ function verifyWebhookSignature(req, res, next) {
   app.post('/stripe-webhook', express.raw({ type: 'application/json' }), verifyWebhookSignature, async (req, res) => {
     const event = req.stripeEvent;
 
-
     switch (event.type) {
       case 'checkout.session.completed':
         const paymentIntent = event.data.object;
