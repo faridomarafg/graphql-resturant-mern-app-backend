@@ -49,18 +49,17 @@ function verifyWebhookSignature(req, res, next) {
   app.post('/stripe-webhook', express.raw({ type: 'application/json' }), verifyWebhookSignature, async (req, res) => {
     const event = req.stripeEvent;
 
+
     switch (event.type) {
       case 'checkout.session.completed':
         const paymentIntent = event.data.object;
-        console.log({paymentIntent}); 
        //create or update order here
         try {
             const order = await Order.findOne({sessionId: paymentIntent.id});
+            console.log('order.id :', order.id);
             order.paid = paymentIntent.payment_status;
             order.subTotal = paymentIntent.amount_subtotal
             order.save();
-            
-            console.log({order});
         } catch (error) {
             console.log(error);
             throw new Error(error.message)
