@@ -36,6 +36,8 @@ module.exports = {
               }
             });
           
+
+            
           
             const session = await stripe.checkout.sessions.create({
               phone_number_collection: {
