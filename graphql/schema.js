@@ -65,7 +65,7 @@ const typeDefs = /* GraphQL */gql`
       full_address:String!
       paid:String!
       deliveryStatus:String!
-      subTotal:Int!
+      subTotal:Int
    }
 
    type Query{
