@@ -18,16 +18,18 @@ dbConnect();
 
 const app = express();
 
-app.use(bodyParser.json({limit:'30mb', extended: true}));
-
-app.use(bodyParser.urlencoded({limit:'30mb', extended: true}));
-
 app.use(
   cors({
     origin: ["http://localhost:3000", 'https://graphql-resturant-mern-app-frontend.onrender.com'],
     credentials: true,
   })
 );
+
+app.use(bodyParser.json({limit:'30mb', extended: true}));
+
+app.use(bodyParser.urlencoded({limit:'30mb', extended: true}));
+
+
 
 function verifyWebhookSignature(req, res, next) {
     const sig = req.headers['stripe-signature'];
