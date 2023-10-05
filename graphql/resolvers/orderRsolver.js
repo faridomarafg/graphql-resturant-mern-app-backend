@@ -28,7 +28,7 @@ module.exports = {
                   currency: 'inr',
                   product_data: {
                     name: item.name,
-                    images: [item.images[0]],
+                    images: item.images,
                   },
                   unit_amount: item.price,
                 },
