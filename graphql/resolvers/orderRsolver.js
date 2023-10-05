@@ -88,7 +88,7 @@ module.exports = {
             const updatedOrder = await order.save();
             return updatedOrder;
            }else{
-            throw new Error({message:'Unauthorized!, you are not an admin!'}); 
+            throw new Error('Unauthorized!, you are not an admin!'); 
            }
 
           } catch (error) {
