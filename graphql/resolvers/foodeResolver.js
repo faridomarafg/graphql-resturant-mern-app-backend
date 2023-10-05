@@ -101,20 +101,42 @@ module.exports = {
        }
      },
 
-     async editFood(_,{id,editInput},context){
+     async editFood(_, { id, editInput }, context) {
         const user = checkAuth(context);
         try {
-            if(user && user.role === 'admin'){
-               const updatedFood = await Food.findByIdAndUpdate(id, {...editInput},{new: true});
-               const result = await updatedFood.save();
-               return result;
+            if (user && user.role === 'admin') {
+                // Find the existing food item by ID
+                const existingFood = await Food.findById(id);
+                if (!existingFood) {
+                    throw new Error(`Food not found with this ID: ${id}`);
+                }
+    
+                // If images are provided in editInput, update them in Cloudinary
+                if (editInput.images && editInput.images.length > 0) {
+                    const updatedImageUrls = await uploadImages(editInput.images);
+                    // Replace the existing images with the updated ones
+                    existingFood.images = updatedImageUrls;
+                }
+    
+                // Update other fields from editInput
+                existingFood.name = editInput.name || existingFood.name;
+                existingFood.description = editInput.description || existingFood.description;
+                existingFood.category = editInput.category || existingFood.category;
+                existingFood.price = editInput.price || existingFood.price;
+                existingFood.ingredients = editInput.ingredients || existingFood.ingredients;
+                existingFood.isVege = editInput.isVege || existingFood.isVege;
+                existingFood.isSpicy = editInput.isSpicy || existingFood.isSpicy;
+    
+                // Save the updated food item
+                const updatedFood = await existingFood.save();
+                return updatedFood;
             }
-            throw new Error('unauthorized!, you are not an admin!');
+            throw new Error('Unauthorized! You are not an admin.');
         } catch (error) {
-            console.log(error);
-            throw new Error(error);
+            console.error(error);
+            throw new Error(error.message);
         }
-     }
+    }
        
     }
 }

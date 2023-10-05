@@ -21,6 +21,7 @@ module.exports = {
     Mutation:{
 
         createCheckoutSesstion: async (_, { cartItems,userDetailsInput}) => {
+          console.log({cartItems});
             
             const lineItems = cartItems.map((item) => {
               return {
