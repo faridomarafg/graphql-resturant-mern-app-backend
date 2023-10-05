@@ -53,12 +53,14 @@ function verifyWebhookSignature(req, res, next) {
     switch (event.type) {
       case 'checkout.session.completed':
         const paymentIntent = event.data.object;
+        console.log({paymentIntent});
        //create or update order here
         try {
             const order = await Order.findOne({sessionId: paymentIntent.id});
             console.log('order.id :', order.id);
             order.paid = paymentIntent.payment_status;
-            order.subTotal = paymentIntent.amount_subtotal
+            //order.subTotal = paymentIntent.amount_subtotal
+            order.subTotal = 3000
             order.save();
         } catch (error) {
             console.log(error);
