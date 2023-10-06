@@ -52,7 +52,6 @@ module.exports = {
         
       // CREATE FOOD
       async  createFood(_, { createFoodInput: { name, description, category, images, price, ingredients, isVege, isSpicy } }, context) {
-        console.log({createFoodInput});
          try {
              // Get user from token to create Food object
              const user = checkAuth(context);
