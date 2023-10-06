@@ -71,6 +71,14 @@ function verifyWebhookSignature(req, res, next) {
     res.json({ received: true });
   });
 
+
+  app.use(
+    express.json({
+      limit: '50mb',
+      type: 'application/json',
+    })
+  );
+
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
