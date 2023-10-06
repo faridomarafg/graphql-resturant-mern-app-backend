@@ -20,8 +20,15 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", 'https://graphql-resturant-mern-app-frontend.onrender.com'],
+     origin: ["http://localhost:3000", 'https://graphql-resturant-mern-app-frontend.onrender.com'],
     credentials: true,
+  })
+);
+
+app.use(
+  express.json({
+    limit: '50mb',
+    type: 'application/json',
   })
 );
 
